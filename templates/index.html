@@ -218,7 +218,7 @@
 }
 
 /* --- Mobile Responsive CSS --- */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     body {
         background-position: center center;
     }
@@ -361,16 +361,18 @@
 <div class="popup-tip float1" style="top: 270px; right: 330px;">✨ Try asking “What can you do?”</div>
 
 <script>
-  window.onload = function () {
-    // Only hide on mobile (screen width <= 768px)
+  document.addEventListener("DOMContentLoaded", function () {
+    // Delay hiding only on mobile
     if (window.innerWidth <= 768) {
       setTimeout(() => {
         document.querySelectorAll('.popup-tip').forEach(popup => {
-          popup.style.display = 'none';
+          popup.style.opacity = '0';
+          popup.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => popup.remove(), 500); // Remove from DOM after fade
         });
-      }, 8000); // Hide after 8 seconds
+      }, 8000); // Start fade after 8 seconds
     }
-  };
+  });
 </script>
 
 
