@@ -1,430 +1,375 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Aidea Web App</title>
-    <!-- Highlight.js for syntax highlighting -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    
-    <style>
+  <title>Aidea Web App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+
+  <style>
     body {
-        font-family: 'Segoe UI', sans-serif;
-        background: url("/static/bg.jpg") no-repeat fixed;
-        background-size: cover;
-        background-position: 80% center;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("/static/bg.jpg") no-repeat fixed;
+      background-size: cover;
+      background-position: 80% center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     #chatbox {
-        width: 100%;
-        max-width: 900px;
-        height: calc(100vh - 70px);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin-left: 40px;
-        margin-top: 20px;
-        padding: 15px;
-        background: rgba(148, 148, 186, 0.3);
-        border-radius: 10px 10px 0 0;
-        overflow-y: auto;
+      width: 100%;
+      max-width: 900px;
+      height: calc(100vh - 70px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-left: 40px;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(148, 148, 186, 0.3);
+      border-radius: 10px 10px 0 0;
+      overflow-y: auto;
     }
 
     #messages {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .bubble {
-        padding: 10px 15px;
-        border-radius: 15px;
-        max-width: 80%;
-        word-wrap: break-word;
-        border: 1.5px solid #555;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      word-wrap: break-word;
+      border: 1.5px solid #555;
     }
 
     .user {
-        background: rgba(127, 89, 143, 0.2);
-        color: #050505;
-        align-self: flex-end;
-        border-color: #47034d;
+      background: rgba(127, 89, 143, 0.2);
+      color: #050505;
+      align-self: flex-end;
+      border-color: #47034d;
     }
 
     .bot {
-        background: rgba(152, 144, 121, 0.2);
-        align-self: flex-start;
-        border-color: #674706;
+      background: rgba(152, 144, 121, 0.2);
+      align-self: flex-start;
+      border-color: #674706;
     }
 
     #input-area {
-        position: fixed;
-        bottom: 10px;
-        left: 30px;
-        width: 100%;
-        max-width: 950px;
-        display: flex;
-        padding: 10px;
-        background: rgba(98, 94, 94, 0.3);
-        box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-        border-top: 1px solid #655e5e;
+      position: fixed;
+      bottom: 10px;
+      left: 30px;
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      padding: 10px;
+      background: rgba(98, 94, 94, 0.3);
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #655e5e;
     }
 
     #userInput {
-        flex: 1;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 16px;
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
 
     button {
-        padding: 10px 16px;
-        border: none;
-        background: #2b5529;
-        color: white;
-        border-radius: 8px;
-        font-size: 16px;
-        margin-left: 10px;
-        cursor: pointer;
+      padding: 10px 16px;
+      border: none;
+      background: #2b5529;
+      color: white;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
     }
 
     button:hover {
-        background: #0056b3;
+      background: #0056b3;
     }
 
     #copyright {
-        position: fixed;
-        bottom: 5px;
-        right: 70px;
-        font-size: 13px;
-        color: #363535;
-        z-index: 999;
-        background: rgba(146, 141, 141, 0.518);
-        padding: 2px 8px;
-        border-radius: 6px;
+      position: fixed;
+      bottom: 5px;
+      right: 70px;
+      font-size: 13px;
+      color: #363535;
+      z-index: 999;
+      background: rgba(146, 141, 141, 0.518);
+      padding: 2px 8px;
+      border-radius: 6px;
     }
 
     .scrolling-text {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        background: rgba(100, 100, 116, 0.6);
-        padding: 10px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        backdrop-filter: blur(3px);
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(100, 100, 116, 0.6);
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      backdrop-filter: blur(3px);
     }
 
     .scrolling-text p {
-        display: inline-block;
-        padding-left: 100%;
-        animation: scroll-left 15s linear infinite;
-        margin: 0;
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
+      margin: 0;
     }
 
     @keyframes scroll-left {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-100%); }
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .popup-tip {
+      position: fixed;
+      background: rgba(102, 101, 155, 0.9);
+      color: #333;
+      padding: 12px 18px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: bold;
+      z-index: 9999;
+      width: 230px;
+      max-width: 230px;
+      text-align: center;
+      word-wrap: break-word;
+      animation: floatUpDown 3s ease-in-out infinite;
     }
 
     /* Desktop positions */
-.popup-container .popup-tip:nth-child(1) {
-  position: fixed;
-  top: 270px;
-  right: 330px;
-}
+    .popup-container .popup-tip:nth-child(1) { top: 270px; right: 330px; }
+    .popup-container .popup-tip:nth-child(2) { top: 60px; right: 30px; }
+    .popup-container .popup-tip:nth-child(3) { bottom: 300px; right: 270px; }
+    .popup-container .popup-tip:nth-child(4) { bottom: 100px; right: 360px; }
 
-.popup-container .popup-tip:nth-child(2) {
-  position: fixed;
-  top: 60px;
-  right: 30px;
-}
-
-.popup-container .popup-tip:nth-child(3) {
-  position: fixed;
-  bottom: 300px;
-  right: 270px;
-}
-
-.popup-container .popup-tip:nth-child(4) {
-  position: fixed;
-  bottom: 100px;
-  right: 360px;
-}
-
-
-    .popup-tip {
-        position: fixed;
-        background: rgba(102, 101, 155, 0.9);
-        color: #333;
-        padding: 12px 18px;
-        border-radius: 20px;
-        font-size: 15px;
-        font-weight: bold;
-        z-index: 9999;
-        width: 230px;
-        max-width: 230px;
-        text-align: center;
-        word-wrap: break-word;
-        animation: floatUpDown 3s ease-in-out infinite;
+    .popup-tip::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 40px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid rgba(255, 255, 255, 0.9);
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
     }
 
     .float1 { animation: floatUpDown1 3s ease-in-out infinite; }
     .float2 { animation: floatUpDown2 4s ease-in-out infinite; }
     .float3 { animation: floatUpDown3 5s ease-in-out infinite; }
 
-    .popup-tip::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 40px;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid rgba(255, 255, 255, 0.9);
-        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
-    }
-
     @keyframes floatUpDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     @keyframes floatUpDown1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
     @keyframes floatUpDown2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes floatUpDown3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 
-    /* Code blocks */
     .code-block {
-        position: relative;
-        margin-top: 10px;
+      position: relative;
+      margin-top: 10px;
     }
 
     .copy-btn {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        padding: 4px 10px;
-        font-size: 12px;
-        background: #68a56a;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        z-index: 10;
-        opacity: 0.8;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 12px;
+      background: #68a56a;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0.8;
     }
 
     .copy-btn:hover {
-        opacity: 1;
+      opacity: 1;
     }
 
     pre {
-        background: #f4f4f4;
-        padding: 10px;
-        border-radius: 6px;
-        overflow-x: auto;
-        font-size: 14px;
-        margin-top: 25px;
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 14px;
+      margin-top: 25px;
     }
+
     .brand-font {
-    font-family: 'Dancing Script', cursive;
-    font-size: 28px;
-    color: #4b0082;  /* or any stylish color */
-    letter-spacing: 1px;
-}
-
-/* --- Mobile Responsive CSS --- */
-@media screen and (max-width: 600px) {
-    body {
-        background-position: center center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: #4b0082;
+      letter-spacing: 1px;
     }
 
-    #chatbox {
+    /* --- Mobile only --- */
+    @media screen and (max-width: 600px) {
+      #chatbox {
         width: 90%;
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 80px;
+        margin: 80px auto 0;
         height: 70vh;
         padding: 10px;
-    }
+      }
 
-    #input-area {
+      #input-area {
         position: fixed;
         bottom: 0;
         left: 5%;
         right: 5%;
         width: 90%;
-        max-width: 90%;
         padding: 8px;
-    }
+      }
 
-    #userInput {
+      #userInput {
         font-size: 14px;
         padding: 8px;
-    }
+      }
 
-    button {
+      button {
         padding: 8px 14px;
         font-size: 14px;
-    }
+      }
 
-    .popup-container {
-  position: fixed;
-  bottom: 70px;
-  left: 5%;
-  right: 5%;
-  width: 90%;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-  gap: 6px;
-  padding: 5px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  z-index: 9999;
-  backdrop-filter: blur(4px);
-  overflow-x: auto;
-}
+      .popup-container {
+        position: fixed;
+        bottom: 70px;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+        gap: 6px;
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        z-index: 9999;
+        backdrop-filter: blur(4px);
+        overflow-x: auto;
+      }
 
-.popup-tip {
-  position: relative !important;
-  top: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-  right: auto !important;
-  animation: floatUpDown 3s ease-in-out infinite !important;
-  min-width: 130px;
-  font-size: 13px;
-  padding: 6px 10px;
-  white-space: nowrap;
-}
-
-.popup-tip::after {
-  display: none;
-}
-    
-
-
-    .scrolling-text {
+      .popup-tip {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        animation: floatUpDown 3s ease-in-out infinite !important;
+        min-width: 130px;
         font-size: 13px;
-        padding: 8px;
+        padding: 6px 10px;
+        white-space: nowrap;
+      }
+
+      .popup-tip::after {
+        display: none;
+      }
     }
-
-    .bubble {
-        font-size: 14px;
-    }
-
-    #copyright {
-        font-size: 12px;
-        right: 10px;
-    }
-
-    body {
-    -webkit-overflow-scrolling: touch;
-}
-}
-
-    </style>
+  </style>
 </head>
 <body>
 
-<div class="scrolling-text">
-    <p>🤖 Welcome to Aidea (AI + Idea) is short, modern, creative, and highly brandable — perfect for a friendly AI chatbot that helps users with ideas, questions, suggestions, and learning. Explore what a truly smart AI can do for you today. Get smart and friendly answers instantly. Whether you're studying, coding, or exploring ideas—this chatbot is your always-on assistant. Ask about tech, education, life, or anything! From jokes to JavaScript, this bot’s got you covered. Created by Eswar Reddy Boyi — designed to be your helpful buddy for knowledge, support, and conversation.</p>
-</div>
+  <div class="scrolling-text">
+    <p>🤖 Welcome to Aidea – your smart and friendly AI assistant by Eswar Boyi. Ask anything from ideas to code to fun facts!</p>
+  </div>
 
-<div id="chatbox">
+  <div id="chatbox">
     <h2><span class="brand-font">Aidea</span> – Friendly AI Chatbot</h2>
     <div id="messages"></div>
     <div id="input-area">
-        <input type="text" id="userInput" placeholder="Ask something...">
-        <button onclick="sendMessage()">Send</button>
+      <input type="text" id="userInput" placeholder="Ask something...">
+      <button onclick="sendMessage()">Send</button>
     </div>
-</div>
+  </div>
 
-<script>
+  <!-- Popup container -->
+  <div class="popup-container">
+    <div class="popup-tip float1">✨ Try asking “What can you do?”</div>
+    <div class="popup-tip float2">💡 Ask for ideas, tips, help, or fun facts!</div>
+    <div class="popup-tip float3">🤖 I'm always listening!</div>
+    <div class="popup-tip">💬 Don’t be shy, just say hi!</div>
+  </div>
+
+  <footer id="copyright">© 2025 Eswar Boyi. All rights reserved.</footer>
+
+  <script>
     const input = document.getElementById('userInput');
 
     input.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            sendMessage();
-            event.preventDefault();
-        }
+      if (event.key === "Enter") {
+        sendMessage();
+        event.preventDefault();
+      }
     });
 
     function escapeHtml(unsafe) {
-        return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
     }
 
     async function sendMessage() {
-        const message = input.value.trim();
-        if (!message) return;
-        addMessage(message, 'user');
-        input.value = '';
-        input.focus();
+      const message = input.value.trim();
+      if (!message) return;
+      addMessage(message, 'user');
+      input.value = '';
+      input.focus();
 
-        try {
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message })
-            });
-            const data = await response.json();
-            addMessage(data.reply, 'bot');
-        } catch (err) {
-            addMessage("Error connecting to server.", 'bot');
-        }
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+        const data = await response.json();
+        addMessage(data.reply, 'bot');
+      } catch (err) {
+        addMessage("Error connecting to server.", 'bot');
+      }
     }
 
     function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `bubble ${sender}`;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `bubble ${sender}`;
 
-        const formattedText = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
-            const id = "code-" + Math.random().toString(36).substr(2, 9);
-            return `
-                <div class="code-block">
-                    <button class="copy-btn" data-clipboard-target="#${id}">Copy</button>
-                    <pre><code id="${id}" class="language-${lang}">${escapeHtml(code)}</code></pre>
-                </div>`;
-        });
+      const formattedText = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        const id = "code-" + Math.random().toString(36).substr(2, 9);
+        return `
+          <div class="code-block">
+            <button class="copy-btn" data-clipboard-target="#${id}">Copy</button>
+            <pre><code id="${id}" class="language-${lang}">${escapeHtml(code)}</code></pre>
+          </div>`;
+      });
 
-        msgDiv.innerHTML = formattedText;
-        document.getElementById('messages').appendChild(msgDiv);
-        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      msgDiv.innerHTML = formattedText;
+      document.getElementById('messages').appendChild(msgDiv);
+      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
-        hljs.highlightAll();
-        new ClipboardJS('.copy-btn');
+      hljs.highlightAll();
+      new ClipboardJS('.copy-btn');
     }
-</script>
-
-<!-- Popups -->
-<!-- Popup container -->
-<div class="popup-container">
-  <div class="popup-tip float1">✨ Try asking “What can you do?”</div>
-  <div class="popup-tip float2">💡 Ask for ideas, tips, help, or fun facts!</div>
-  <div class="popup-tip float3">🤖 I'm always listening!</div>
-  <div class="popup-tip">💬 Don’t be shy, just say hi!</div>
-</div>
-
-
-<footer id="copyright">© 2025 Eswar Boyi. All rights reserved.</footer>
-
-
-
+  </script>
 </body>
 </html>
