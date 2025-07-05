@@ -364,23 +364,20 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  if (window.innerWidth <= 768) {
-    const popups = document.querySelectorAll('.popup-tip');
+    if (window.innerWidth <= 768) {
+      const popups = document.querySelectorAll('.popup-tip');
 
-    popups.forEach(popup => {
-      // Set the transition FIRST
-      popup.style.transition = 'opacity 0.6s ease';
-
-      // Then fade after 8s
-      setTimeout(() => {
-        popup.style.opacity = '0';
-        setTimeout(() => popup.remove(), 600); // Remove after fade completes
-      }, 8000);
-    });
-  }
-});
-
+      popups.forEach(popup => {
+        // Use a small delay to ensure visibility before fade
+        setTimeout(() => {
+          popup.style.cssText += 'opacity: 0 !important; transition: opacity 0.8s ease !important;';
+          setTimeout(() => popup.remove(), 800); // Remove after fade
+        }, 8000);
+      });
+    }
+  });
 </script>
+
 
 
 <footer id="copyright">© 2025 Eswar Boyi. All rights reserved.</footer>
