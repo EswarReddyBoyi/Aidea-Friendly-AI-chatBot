@@ -358,25 +358,33 @@
 
 <!-- Popups -->
 <div class="popup-tip" style="bottom: 100px; right: 360px;">💬 Don’t be shy, just say hi!</div>
-<div class="popup-tip float3" style="bottom: 300px; right: 270px;">🤖 I'm always listening!</div>
-<div class="popup-tip float2" style="top: 60px; right: 30px;">💡 Ask for ideas, tips, help, or fun facts!</div>
-<div class="popup-tip float1" style="top: 270px; right: 330px;">✨ Try asking “What can you do?”</div>
+<div class="popup-tip float3" data-bottom="300px" data-right="270px">🤖 I'm always listening!</div>
+<div class="popup-tip float2" data-top="60px" data-right="30px">💡 Ask for ideas, tips, help, or fun facts!</div>
+<div class="popup-tip float1" data-top="270px" data-right="330px">✨ Try asking “What can you do?”</div>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    if (window.innerWidth <= 768) {
-      const popups = document.querySelectorAll('.popup-tip');
+    const popups = document.querySelectorAll('.popup-tip');
 
-      popups.forEach(popup => {
-        // Use a small delay to ensure visibility before fade
+    popups.forEach(popup => {
+      // Set position from data attributes instead of inline styles
+      if (popup.dataset.top) popup.style.top = popup.dataset.top;
+      if (popup.dataset.bottom) popup.style.bottom = popup.dataset.bottom;
+      if (popup.dataset.right) popup.style.right = popup.dataset.right;
+
+      // For mobile devices, hide after 8s
+      if (window.innerWidth <= 768) {
         setTimeout(() => {
-          popup.style.cssText += 'opacity: 0 !important; transition: opacity 0.8s ease !important;';
-          setTimeout(() => popup.remove(), 800); // Remove after fade
+          popup.style.transition = 'opacity 0.8s ease';
+          popup.style.opacity = '0';
+          setTimeout(() => popup.remove(), 800);
         }, 8000);
-      });
-    }
+      }
+    });
   });
 </script>
+
 
 
 
