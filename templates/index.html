@@ -153,6 +153,7 @@
         text-align: center;
         word-wrap: break-word;
         animation: floatUpDown 3s ease-in-out infinite;
+        
     }
 
     .float1 { animation: floatUpDown1 3s ease-in-out infinite; }
@@ -257,6 +258,7 @@
         font-size: 13px;
         padding: 10px 14px;
         width: 200px;
+        transition: opacity 0.6s ease;
     }
 
     .scrolling-text {
@@ -362,17 +364,22 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Delay hiding only on mobile
-    if (window.innerWidth <= 768) {
+  if (window.innerWidth <= 768) {
+    const popups = document.querySelectorAll('.popup-tip');
+
+    popups.forEach(popup => {
+      // Set the transition FIRST
+      popup.style.transition = 'opacity 0.6s ease';
+
+      // Then fade after 8s
       setTimeout(() => {
-        document.querySelectorAll('.popup-tip').forEach(popup => {
-          popup.style.opacity = '0';
-          popup.style.transition = 'opacity 0.5s ease';
-          setTimeout(() => popup.remove(), 500); // Remove from DOM after fade
-        });
-      }, 8000); // Start fade after 8 seconds
-    }
-  });
+        popup.style.opacity = '0';
+        setTimeout(() => popup.remove(), 600); // Remove after fade completes
+      }, 8000);
+    });
+  }
+});
+
 </script>
 
 
