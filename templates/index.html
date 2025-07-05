@@ -153,7 +153,6 @@
         text-align: center;
         word-wrap: break-word;
         animation: floatUpDown 3s ease-in-out infinite;
-        
     }
 
     .float1 { animation: floatUpDown1 3s ease-in-out infinite; }
@@ -219,7 +218,7 @@
 }
 
 /* --- Mobile Responsive CSS --- */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
     body {
         background-position: center center;
     }
@@ -254,12 +253,45 @@
         font-size: 14px;
     }
 
-    .popup-tip {
-        font-size: 13px;
-        padding: 10px 14px;
-        width: 200px;
-        transition: opacity 0.6s ease;
-    }
+    @media screen and (max-width: 600px) {
+  .popup-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 70px; /* just above input box */
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    z-index: 9999;
+    padding: 4px 8px;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow-x: auto;
+    backdrop-filter: blur(4px);
+  }
+
+  .popup-tip {
+    position: relative !important;     /* ignore top/right/bottom from inline styles */
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    animation: floatUpDown 3s ease-in-out infinite !important;
+    font-size: 13px;
+    min-width: 140px;
+    white-space: nowrap;
+    padding: 8px 12px;
+  }
+
+  .popup-tip::after {
+    display: none;  /* Hide triangle tail on mobile */
+  }
+}
+
 
     .scrolling-text {
         font-size: 13px;
@@ -358,37 +390,13 @@
 
 <!-- Popups -->
 <div class="popup-tip" style="bottom: 100px; right: 360px;">💬 Don’t be shy, just say hi!</div>
-<div class="popup-tip float3" data-bottom="300px" data-right="270px">🤖 I'm always listening!</div>
-<div class="popup-tip float2" data-top="60px" data-right="30px">💡 Ask for ideas, tips, help, or fun facts!</div>
-<div class="popup-tip float1" data-top="270px" data-right="330px">✨ Try asking “What can you do?”</div>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const popups = document.querySelectorAll('.popup-tip');
-
-    popups.forEach(popup => {
-      // Set position from data attributes instead of inline styles
-      if (popup.dataset.top) popup.style.top = popup.dataset.top;
-      if (popup.dataset.bottom) popup.style.bottom = popup.dataset.bottom;
-      if (popup.dataset.right) popup.style.right = popup.dataset.right;
-
-      // For mobile devices, hide after 8s
-      if (window.innerWidth <= 768) {
-        setTimeout(() => {
-          popup.style.transition = 'opacity 0.8s ease';
-          popup.style.opacity = '0';
-          setTimeout(() => popup.remove(), 800);
-        }, 8000);
-      }
-    });
-  });
-</script>
-
-
-
+<div class="popup-tip float3" style="bottom: 300px; right: 270px;">🤖 I'm always listening!</div>
+<div class="popup-tip float2" style="top: 60px; right: 30px;">💡 Ask for ideas, tips, help, or fun facts!</div>
+<div class="popup-tip float1" style="top: 270px; right: 330px;">✨ Try asking “What can you do?”</div>
 
 <footer id="copyright">© 2025 Eswar Boyi. All rights reserved.</footer>
+
+
 
 </body>
 </html>
