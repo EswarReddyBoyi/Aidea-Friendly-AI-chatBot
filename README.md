@@ -105,8 +105,9 @@ def chat():
 
 | Desktop View | Mobile View |
 |--------------|-------------|
-| ![Screenshot 2025-07-05 234228](https://github.com/user-attachments/assets/51470fff-f7ba-4873-9918-1fd5b497e741)
-(static/bg.jpg) | Responsive layout with popups & floating chat |
+|![Screenshot 2025-07-05 234228](https://github.com/user-attachments/assets/51470fff-f7ba-4873-9918-1fd5b497e741) ![phn](https://github.com/user-attachments/assets/fdba818b-1fe0-456c-bfd6-d231fd63794f)
+![bg](https://github.com/user-attachments/assets/801edd15-0241-44f5-b59f-4fa34a5aa9b3)
+ | Responsive layout with popups & floating chat |
 
 ---
 
