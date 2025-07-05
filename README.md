@@ -149,7 +149,7 @@ Free for learning and personal use. Attribution required if forked publicly.
 
 Want to contribute, collaborate or improve?  
 📧 Email: [eswarboyi7@gmail.com](mailto:eswarboyi7@gmail.com)  
-🌐 LinkedIn: [linkedin.com/in/eswarboyi]([https://linkedin.com/in/eswarboyi](https://www.linkedin.com/in/eswar-boyi-795250253?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)])
+🌐 LinkedIn: [linkedin.com/in/eswarboyi](https://linkedin.com/in/eswarboyi](https://www.linkedin.com/in/eswar-boyi-795250253?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ---
 
