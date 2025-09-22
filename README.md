@@ -44,7 +44,7 @@ aidea-chatbot/
 ### 1. 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/aidea-chatbot.git
+git clone https://github.com/EswarReddyBoyi/aidea-chatbot.git
 cd aidea-chatbot
 ```
 
